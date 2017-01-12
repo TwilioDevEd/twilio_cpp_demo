@@ -77,7 +77,7 @@ bool Twilio::send_message(
         // See: https://www.twilio.com/docs/api/rest/sending-messages for
         // information on Twilio body size limits.
         if (message_body.length() > 1600) {
-                response_stream << "Message body must be less than 1600"
+                response_stream << "Message body must have 1600 or fewer"
                         << " characters. Cannot send message with "
                         << message_body.length() << " characters.";
                 response = response_stream.str();
