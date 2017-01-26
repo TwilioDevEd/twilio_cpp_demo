@@ -14,11 +14,11 @@ public:
         ~Twilio() = default;
 
         bool send_message(
-                const std::string& to_number,
-                const std::string& from_number,
-                const std::string& message_body,
+                std::string const& to_number,
+                std::string const& from_number,
+                std::string const& message_body,
                 std::string& response,
-                const std::string& picture_url = "",
+                std::string const& picture_url = "",
                 bool verbose = false
         );
 

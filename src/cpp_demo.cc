@@ -17,7 +17,6 @@
 
 int main(int argc, char * argv[])
 {
-
         int cmd;
         std::string account_sid;
         std::string auth_token;

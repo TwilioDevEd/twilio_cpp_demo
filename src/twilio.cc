@@ -46,11 +46,11 @@ size_t Twilio::_stream_write(
 //        - picture_url: If picture URL is included, a MMS will be sent
 //        - verbose: Whether to print all the responses
 bool Twilio::send_message(
-        const std::string& to_number,
-        const std::string& from_number,
-        const std::string& message_body,
+        std::string const& to_number,
+        std::string const& from_number,
+        std::string const& message_body,
         std::string& response,
-        const std::string& picture_url,
+        std::string const& picture_url,
         bool verbose)
 {
         std::stringstream response_stream;
