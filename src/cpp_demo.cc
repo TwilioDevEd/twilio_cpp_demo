@@ -75,8 +75,8 @@ int main(int argc, char * argv[])
                 }
         }
 
-        if ( account_sid.empty() || auth_token.empty() || from_number.empty()
-                || to_number.empty() || message.empty() ) {
+        if ( account_sid.empty() or auth_token.empty() or from_number.empty()
+                or to_number.empty() or message.empty() ) {
                 std::cout<< "You didn't include all necessary inputs!\n"
                         "Call using -h for help.\n" << std::endl;
                 return -1;
