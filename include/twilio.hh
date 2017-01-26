@@ -1,5 +1,5 @@
-#ifndef TWILIO_HH
-#define TWILIO_HH
+#pragma once
+
 #include <string>
 
 namespace twilio {
@@ -11,7 +11,7 @@ public:
                 const std::string& auth_token_in
         );
         // Nothing in destructor
-        ~Twilio() { }; 
+        ~Twilio() = default;
 
         void set_account_sid(const std::string& accound_sid_in);
         void set_auth_token(const std::string& auth_token_in);
@@ -40,5 +40,3 @@ private:
 };
 
 } // end namespace twilio
-
-#endif // TWILIO_HH
