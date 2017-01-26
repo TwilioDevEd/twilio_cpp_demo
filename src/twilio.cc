@@ -6,25 +6,6 @@
 
 namespace twilio {
 
-Twilio::Twilio(
-        const std::string& accound_sid_in, 
-        const std::string& auth_token_in
-)
-{
-    account_sid = accound_sid_in;
-    auth_token = auth_token_in;
-}
-
-void Twilio::set_account_sid(const std::string& accound_sid_in)
-{
-        account_sid = accound_sid_in;
-}
-
-void Twilio::set_auth_token(const std::string& auth_token_in)
-{
-        auth_token = auth_token_in;
-}
-
 // Portably ignore curl response
 size_t Twilio::_null_write(
         char *ptr, 
