@@ -1,26 +1,24 @@
-#ifndef TWILIO_HH
-#define TWILIO_HH
+#pragma once
+
 #include <string>
 
 namespace twilio {
 
 class Twilio {
 public:
-        Twilio(
-                const std::string& accound_sid_in, 
-                const std::string& auth_token_in
-        );
+        Twilio(std::string const& account_sid_in, std::string const& auth_token_in)
+                : account_sid(account_sid_in)
+                , auth_token(auth_token_in)
+        {}
         // Nothing in destructor
-        ~Twilio() { }; 
+        ~Twilio() = default;
 
-        void set_account_sid(const std::string& accound_sid_in);
-        void set_auth_token(const std::string& auth_token_in);
         bool send_message(
-                const std::string& to_number,
-                const std::string& from_number,
-                const std::string& message_body,
+                std::string const& to_number,
+                std::string const& from_number,
+                std::string const& message_body,
                 std::string& response,
-                const std::string& picture_url = "",
+                std::string const& picture_url = "",
                 bool verbose = false
         );
 
@@ -29,9 +27,9 @@ private:
         // See: https://twilio.com/console for more.
 
         // Used for the username of the auth header
-        std::string account_sid;
+        std::string const account_sid;
         // Used for the password of the auth header
-        std::string auth_token;
+        std::string const auth_token;
 
         // Portably ignore curl response
         static size_t _null_write(char *, size_t, size_t, void *);
@@ -40,5 +38,3 @@ private:
 };
 
 } // end namespace twilio
-
-#endif // TWILIO_HH

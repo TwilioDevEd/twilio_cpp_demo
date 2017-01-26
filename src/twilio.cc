@@ -6,25 +6,6 @@
 
 namespace twilio {
 
-Twilio::Twilio(
-        const std::string& accound_sid_in, 
-        const std::string& auth_token_in
-)
-{
-    account_sid = accound_sid_in;
-    auth_token = auth_token_in;
-}
-
-void Twilio::set_account_sid(const std::string& accound_sid_in)
-{
-        account_sid = accound_sid_in;
-}
-
-void Twilio::set_auth_token(const std::string& auth_token_in)
-{
-        auth_token = auth_token_in;
-}
-
 // Portably ignore curl response
 size_t Twilio::_null_write(
         char *ptr, 
@@ -65,11 +46,11 @@ size_t Twilio::_stream_write(
 //        - picture_url: If picture URL is included, a MMS will be sent
 //        - verbose: Whether to print all the responses
 bool Twilio::send_message(
-        const std::string& to_number,
-        const std::string& from_number,
-        const std::string& message_body,
+        std::string const& to_number,
+        std::string const& from_number,
+        std::string const& message_body,
         std::string& response,
-        const std::string& picture_url,
+        std::string const& picture_url,
         bool verbose)
 {
         std::stringstream response_stream;

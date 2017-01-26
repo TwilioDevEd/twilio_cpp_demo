@@ -2,6 +2,7 @@
 * This example demonstrates sending a SMS or MMS in C++ using the Twilio REST
 * APIs.  After building, you should be able to run it with:
 * 
+* ./bin/cpp_demo
 * 
 */
 
@@ -17,7 +18,6 @@
 
 int main(int argc, char * argv[])
 {
-
         int cmd;
         std::string account_sid;
         std::string auth_token;
@@ -75,8 +75,8 @@ int main(int argc, char * argv[])
                 }
         }
 
-        if ( account_sid.empty() || auth_token.empty() || from_number.empty()
-                || to_number.empty() || message.empty() ) {
+        if ( account_sid.empty() or auth_token.empty() or from_number.empty()
+                or to_number.empty() or message.empty() ) {
                 std::cout<< "You didn't include all necessary inputs!\n"
                         "Call using -h for help.\n" << std::endl;
                 return -1;
@@ -84,7 +84,7 @@ int main(int argc, char * argv[])
 
         // Instantiate a twilio object and call send_message
         std::string response;
-        twilio::Twilio *twilio = new twilio::Twilio(account_sid, auth_token);
+        auto twilio = std::make_shared<twilio::Twilio>(account_sid, auth_token);
         bool message_success = twilio->send_message(
                 to_number, 
                 from_number, 
@@ -93,7 +93,6 @@ int main(int argc, char * argv[])
                 picture_url,
                 verbose
         );
-        delete twilio;
 
         // Report success or failure
         if (!message_success) {
@@ -105,7 +104,7 @@ int main(int argc, char * argv[])
                         }
                 }
                 return -1;
-        } else if (verbose and message_success) {
+        } else if (verbose) {
                 std::cout << "SMS sent successfully!" << std::endl;
                 std::cout << "Response:" << std::endl << response
                         << std::endl;
