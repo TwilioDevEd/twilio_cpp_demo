@@ -2,6 +2,7 @@
 * This example demonstrates sending a SMS or MMS in C++ using the Twilio REST
 * APIs.  After building, you should be able to run it with:
 * 
+* ./bin/cpp_demo
 * 
 */
 
