@@ -36,8 +36,8 @@ size_t Twilio::_stream_write(
 //   Inputs:
 //        - to_number: Where to send the MMS or SMS
 //        - from_number: Number in your Twilio account to use as a sender.
-//        - message_body: (Max: 1600 characters) The body of the MMS or SMS 
-//                message which will be sent to the to_number.
+//        - message_body: (Max: 1600 unicode characters) The body of the MMS 
+//                        or SMS message which will be sent to the to_number.
 //
 //   Outputs:
 //        - response: Either the curl error message or the Twilio response
@@ -54,13 +54,22 @@ bool Twilio::send_message(
         bool verbose)
 {
         std::stringstream response_stream;
+        std::u16string converted_message_body;
 
+        // Assume UTF-8 input, convert to UCS-2 to check size
         // See: https://www.twilio.com/docs/api/rest/sending-messages for
         // information on Twilio body size limits.
-        if (message_body.length() > 1600) {
+        try {
+                converted_message_body = utf8_to_ucs2(message_body);
+        } catch(const std::range_error& e) {
+                response = e.what();
+                return false;
+        }
+
+        if (converted_message_body.size() > 1600) {
                 response_stream << "Message body must have 1600 or fewer"
                         << " characters. Cannot send message with "
-                        << message_body.length() << " characters.";
+                        << converted_message_body.size() << " characters.";
                 response = response_stream.str();
                 return false;
         }
@@ -68,7 +77,13 @@ bool Twilio::send_message(
         CURL *curl;
         curl_global_init(CURL_GLOBAL_ALL);
         curl = curl_easy_init();
-        
+
+        // Percent encode special characters
+        char *message_body_escaped = curl_easy_escape(
+                curl, 
+                message_body.c_str(), 
+                0
+        );
 
 
         std::stringstream url;
@@ -81,7 +96,7 @@ bool Twilio::send_message(
         std::stringstream parameters;
         std::string parameter_string;
         parameters << "To=" << to_number << "&From=" << from_number 
-                << "&Body=" << message_body;
+                << "&Body=" << message_body_escaped;
         if (!picture_url.empty()) {
                 parameters << "&MediaUrl=" << picture_url;
         }
@@ -102,6 +117,7 @@ bool Twilio::send_message(
 
 
         CURLcode res = curl_easy_perform(curl);
+        curl_free(message_body_escaped);
         curl_easy_cleanup(curl);
         long http_code = 0;
         curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);

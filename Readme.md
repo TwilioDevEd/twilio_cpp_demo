@@ -7,7 +7,7 @@ Please read [our full article](https://www.twilio.com/docs/guides/how-to-send-sm
 ## Build example:
 
 <pre>
-git clone ...
+git clone https://github.com/TwilioDevEd/twilio_cpp_demo.git
 cd twilio_cpp_demo
 make
 </pre>

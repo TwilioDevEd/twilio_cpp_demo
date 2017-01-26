@@ -1,12 +1,14 @@
 #pragma once
 
 #include <string>
+#include "type_conversion.hh"
 
 namespace twilio {
 
 class Twilio {
 public:
-        Twilio(std::string const& account_sid_in, std::string const& auth_token_in)
+        Twilio(std::string const& account_sid_in, 
+               std::string const& auth_token_in)
                 : account_sid(account_sid_in)
                 , auth_token(auth_token_in)
         {}
