@@ -104,7 +104,7 @@ int main(int argc, char * argv[])
                         }
                 }
                 return -1;
-        } else if (verbose and message_success) {
+        } else if (verbose) {
                 std::cout << "SMS sent successfully!" << std::endl;
                 std::cout << "Response:" << std::endl << response
                         << std::endl;
