@@ -84,7 +84,7 @@ int main(int argc, char * argv[])
 
         // Instantiate a twilio object and call send_message
         std::string response;
-        twilio::Twilio *twilio = new twilio::Twilio(account_sid, auth_token);
+        auto twilio = std::make_shared<twilio::Twilio>(account_sid, auth_token);
         bool message_success = twilio->send_message(
                 to_number, 
                 from_number, 
@@ -93,7 +93,6 @@ int main(int argc, char * argv[])
                 picture_url,
                 verbose
         );
-        delete twilio;
 
         // Report success or failure
         if (!message_success) {
